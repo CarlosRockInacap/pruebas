@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    /* Estilos de neón (ya definidos) */
+    .neon-text {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff4d4d, 0 0 20px #ff6666, 0 0 30px #ff8080;
+    }
+
+    .neon-box {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 77, 77, 0.6), 
+                    0 0 30px rgba(255, 102, 102, 0.4), 0 0 40px rgba(255, 128, 128, 0.2);
+        border: 2px solid rgba(255, 77, 77, 0.8);
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-neon {
+        color: #fff;
+        background-color: #ff4d4d;
+        border: none;
+        text-shadow: 0 0 5px #ff8080, 0 0 10px #ff9999;
+        box-shadow: 0 0 5px #ff4d4d, 0 0 15px #ff6666;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .btn-neon:hover {
+        box-shadow: 0 0 20px #ff3333, 0 0 30px #ff6666;
+    }
+</style>
+
+{{ error }}
+
+<div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+        <div class="p-4 bg-dark text-light rounded shadow-sm neon-box">
+            <h3 class="text-center neon-text">Crea un QR</h3>
+            <form action="{% url 'crearQR' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn-neon">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Aplica Select2 al campo 'servicios' para agregar búsqueda
+        $('#id_servicios').select2({
+            placeholder: "Buscar y seleccionar servicios",  // Texto que aparece cuando no hay selección
+            allowClear: true  // Permite borrar la selección
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+     /* Contorno neón */
+    .neon-text {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff4d4d, 0 0 20px #ff6666, 0 0 30px #ff8080;
+    }
+
+    .neon-box {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 77, 77, 0.6), 
+                    0 0 30px rgba(255, 102, 102, 0.4), 0 0 40px rgba(255, 128, 128, 0.2);
+        border: 2px solid rgba(255, 77, 77, 0.8);
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-neon {
+        color: #fff;
+        background-color: #ff4d4d;
+        border: none;
+        text-shadow: 0 0 5px #ff8080, 0 0 10px #ff9999;
+        box-shadow: 0 0 5px #ff4d4d, 0 0 15px #ff6666;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .btn-neon:hover {
+        box-shadow: 0 0 20px #ff3333, 0 0 30px #ff6666;
+    }
+</style>
+
+<main>
+    <section class="container py-5">
+        <div class="text-center mb-4">
+            <h2 class="neon-text">¡Únete a QRinformate!</h2>
+            <p class="lead fw-bold" style="color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);">
+                Sé parte de nuestra comunidad, comparte tus experiencias y vota para ayudar a otros usuarios.
+            </p>
+        </div>
+        
+        <!-- Beneficios -->
+<div class="row justify-content-center mb-5">
+    <div class="col-md-3 text-center">
+        <div class="p-3 rounded shadow-sm neon-box" style="background-color: rgba(248, 215, 218, 0.9);">
+            <h5 class="text-danger">Termómetro de Seguridad</h5>
+            <p>
+                <strong style="color: #000;">Evalúa las zonas seguras e inseguras y contribuye a una comunidad más informada.</strong>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3 text-center">
+        <div class="p-3 rounded shadow-sm neon-box" style="background-color: rgba(212, 237, 218, 0.9);">
+            <h5 class="text-success">Reseñas</h5>
+            <p>
+                <strong style="color: #000;">Comparte tus opiniones sobre los lugares que visitas y ayuda a otros usuarios.</strong>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-3 text-center">
+        <div class="p-3 rounded shadow-sm neon-box" style="background-color: rgba(204, 229, 255, 0.9);">
+            <h5 class="text-primary">Deja tu Comentario</h5>
+            <p>
+                <strong style="color: #000;">Da tu opinión y describe tus experiencias. ¡Tu voz cuenta!</strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+        <!-- Formulario de Registro -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="p-4 bg-dark text-light rounded shadow-sm neon-box">
+                    <h3 class="text-center neon-text">Regístrate</h3>
+                    {{error}}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form.as_p}}
+
+                        <button>Crear Usuario</button>
+
+                    </form>                     
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

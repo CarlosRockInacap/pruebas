@@ -1,0 +1,270 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Título con sombra verde */
+    .titulo-planes {
+        color: #28a745; /* Verde */
+        text-shadow: 2px 2px 10px rgba(40, 167, 69, 0.7); /* Sombra verde */
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    }
+
+    /* Movimiento continuo mientras el puntero esté sobre la sección */
+    #servicios:hover .titulo-planes {
+        animation: mover 3s linear infinite;
+    }
+
+    /* Definición de la animación de movimiento */
+    @keyframes mover {
+        0% {
+            transform: translateX(0);
+        }
+        20% {
+            transform: translateX(calc(100vw - 100%)); /* Mueve el título al final del ancho de la pantalla */
+        }
+        80% {
+            transform: translateX(-35%); /* Vuelve a la posición inicial */
+        }
+        100% {
+            transform: translateX(0); /* Vuelve a la posición inicial */
+        }
+    }
+
+        .map-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        background: #f8f1e9; /* Fondo beige similar a papel antiguo */
+        border: 8px solid #8b5e3c; /* Marco marrón oscuro */
+        border-radius: 15px; /* Bordes redondeados */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+        overflow: hidden; /* Asegura que nada sobresalga del marco */
+    }
+
+    .map-container::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 2px dashed #8b5e3c; /* Línea decorativa interna */
+        border-radius: 15px; /* Coincide con el borde exterior */
+        pointer-events: none; /* No interfiere con el uso del mapa */
+    }
+
+    iframe {
+        border: none; /* Elimina cualquier borde del iframe */
+        border-radius: 10px; /* Suaviza los bordes internos */
+    }
+
+        .contact-box {
+        margin: 50px auto; /* Centra el cuadro horizontalmente y agrega margen superior e inferior */
+        padding: 20px; /* Espaciado interno */
+        max-width: 500px; /* Ancho máximo para mantenerlo centrado */
+        background-color: #fff; /* Fondo blanco */
+        border: 2px solid #000; /* Borde negro */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+    }
+
+    .contact-box:hover {
+        transform: translateY(-5px); /* Sobresale hacia arriba */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+        border-color: #555; /* Cambia ligeramente el color del borde al interactuar */
+    }
+
+</style>
+
+<main>
+    <section id="inicio" class="py-5 text-center" style="background: rgba(0, 0, 0, 0.5);">
+        <div class="container">
+            <h1>Bienvenidos a QRinformate</h1>
+            <p>Te damos la bienvenida a la comunidad QRinformate, donde la información está al alcance de un QR con todos los datos que necesitas.</p>
+            <a href="{% url 'singup' %}" class="btn btn-danger">Inscríbete</a>
+        </div>
+    </section>
+
+    <section id="servicios" class="container my-5">
+        <div class="plan-container">
+            <div class="row mb-4 text-center">
+                <div class="col-12">
+                    <h2 class="titulo-planes">Planes y Servicios</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th class="col-40">Descripción</th>
+                                <th class="col-30">Básico</th>
+                                <th class="col-30">Premium</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Visualización en QR cercanos</td>
+                                <td class="text-success">&#10003;</td>
+                                <td class="text-success">&#10003;</td>
+                            </tr>
+                            <tr>
+                                <td>Acceso a tu página</td>
+                                <td class="text-success">&#10003;</td>
+                                <td class="text-success">&#10003;</td>
+                            </tr>
+                            <tr>
+                                <td>Página interactiva</td>
+                                <td class="text-danger">&#10007;</td>
+                                <td class="text-success">&#10003;</td>
+                            </tr>
+                            <tr>
+                                <td>Enlaces directos con deliverys</td>
+                                <td class="text-danger">&#10007;</td>
+                                <td class="text-success">&#10003;</td>
+                            </tr>
+                            <tr>
+                                <td>Vínculos a páginas de pago</td>
+                                <td class="text-danger">&#10007;</td>
+                                <td class="text-success">&#10003;</td>
+                            </tr>
+                            <tr>
+                                <td>Potenciadores de visualización</td>
+                                <td class="text-danger">&#10007;</td>
+                                <td class="text-success">&#10003;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="custom-container">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card plan-card shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">Básico</h3>
+                                <p class="plan-price">$4.000/mes</p>
+                                <p class="card-text">Con presencia donde están tus potenciales clientes. Haz que visualicen tu negocio cuando más cerca estén, ¡Incrementa tus ventas ya! ¿Qué esperas?</p>
+                                <!-- Botón de suscripción para el plan Básico -->
+                                <a href="{% url 'inscribeteUP' %}" class="btn btn-danger">Suscríbete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card plan-card shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">Premium</h3>
+                                <p class="plan-price">$10.000/mes</p>
+                                <p class="card-text">Personaliza tu página con accesos directos y links asociados a aplicaciones de delivery o reparto además de redireccionamiento a páginas de pago online.</p>
+                                <!-- Botón de suscripción para el plan Premium -->
+                                <a href="{% url 'inscribeteUP' %}" class="btn btn-danger">Suscríbete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="container py-5">
+        <div class="row d-flex flex-wrap justify-content-center">
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/galeria1.jpg' %}" alt="Galería 1" class="gallery-img">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/galeria2.jpg' %}" alt="Galería 2" class="gallery-img">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/galeria3.jpg' %}" alt="Galería 3" class="gallery-img">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/galeria4.jpg' %}" alt="Galería 4" class="gallery-img">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/galeria5.jpg' %}" alt="Galería 5" class="gallery-img">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/galeria6.jpg' %}" alt="Galería 6" class="gallery-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="contactenos" class="container py-5">
+        <div class="row">
+            <div class="map-container">
+                <iframe 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0" 
+                    src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=Santiago+(Chile)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="contact-box">
+                <h3 class="text-danger">¡Dinos dónde te gustaría un QRinformate!</h3>
+                <form id="contact-form" action="{% url 'enviar_mensaje' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-dark">Enviar</button>
+                    <a href="{% url 'listar_mensajes' %}" class="btn btn-secondary">Ver otros mensajes</a>
+                </form>                
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("contact-form");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío normal del formulario
+
+            // Crea una solicitud AJAX para enviar el formulario
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": formData.get('csrfmiddlewaretoken') // Obtiene el token CSRF
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Hubo un problema al enviar el formulario");
+                    }
+                })
+                .then(data => {
+                    // Muestra la alerta de éxito
+                    Swal.fire({
+                        title: "¡Mensaje Enviado!",
+                        text: "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.",
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#28a745"
+                    });
+
+                    // Opcional: Reinicia el formulario
+                    form.reset();
+                })
+                .catch(error => {
+                    // Muestra la alerta de error
+                    Swal.fire({
+                        title: "Error",
+                        text: "Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo.",
+                        icon: "error",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "#dc3545"
+                    });
+                });
+        });
+    });
+</script>
+
+{% endblock %}

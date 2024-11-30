@@ -1,0 +1,95 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h1 class="text-center my-4">QR Page</h1>
+
+<div class="container">
+    <!-- Botón en la parte superior derecha -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'crearQR' %}" class="btn btn-success btn-lg rounded-pill px-4 shadow">Crear un QR</a>
+    </div>
+    
+    <div class="row">
+        {% for QR in QRs %}
+        <div class="col-md-6 col-lg-4 my-3">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5>QR - {{ QR.numero }}</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Ubicación</th>
+                                <td>{{ QR.ubicacion }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Comuna</th>
+                                <td>{{ QR.comuna }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ciudad</th>
+                                <td>{{ QR.ciudad }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Lugares de Interés</th>
+                                <td>
+                                    {% for lugar in QR.lugares_interes.all %}
+                                        {{ lugar.nombre }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Servicios</th>
+                                <td>
+                                    {% for servicio in QR.servicios.all %}
+                                        {{ servicio.nombre }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Negocios</th>
+                                <td>
+                                    {% for negocio in QR.negocios.all %}
+                                        {{ negocio.nombre }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seguridad</th>
+                                <td>{{ QR.seguridad }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mapa</th>
+                                <td>
+                                    {% if QR.mapa %}
+                                        <img src="{{ QR.mapa.url }}" alt="Mapa" class="img-fluid">
+                                    {% else %}
+                                        No disponible
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Código QR</th>
+                                <td>
+                                    {% if QR.qr_code %}
+                                        <!-- Usar la ruta estática para acceder al archivo QR -->
+                                        <img src="{% static QR.qr_code %}" alt="QR Code" class="img-fluid">
+                                    {% else %}
+                                        No disponible
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

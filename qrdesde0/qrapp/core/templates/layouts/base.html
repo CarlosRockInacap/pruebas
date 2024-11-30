@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Página de acceso QR con información de relevancia para los usuarios que visitan ciertos lugares adheridos">
+    <meta name="keywords" content="QR, Dispositivos Móviles, Ubicación, lugares interesantes, índice de peligrosidad, locomoción colectiva cercana">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRinformate - Creación de usuario</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    {% block css %} {% endblock %}
+
+    <!-- Correcto uso de static para imágenes locales -->
+    <link rel="icon" href="{% static 'img/qr negro.jpg' %}" type="image/png">
+    <style>
+        body {
+            background: url("{% static 'img/fondo.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 2px solid #4e4e4e;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+
+        .plan-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-top: 40px;
+        }
+
+        .plan-card {
+            background: none;
+            border: none;
+        }
+
+        .card-title {
+            color: #dc3545; /* Bootstrap's danger color */
+        }
+
+        .card-text {
+            margin-bottom: 0;
+        }
+
+        .plan-description {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .plan-price {
+            font-size: 1.5rem;
+            color: #dc3545; /* Bootstrap's danger color */
+        }
+
+        .col-40 {
+            width: 40%;
+        }
+
+        .col-30 {
+            width: 30%;
+        }
+
+        .custom-container {
+            width: 60%;
+            margin-left: auto; /* Align container to the right */
+            margin-top: 0; /* Remove top margin to position at the top */
+        }
+
+        .custom-container .card {
+            text-align: center; /* Center text inside cards */
+        }
+
+        .login {
+            margin-left: 80px; /* Empuja el login hacia la derecha */
+            margin-right: 10px; /* Ajusta el margen derecho según lo necesites */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html">
+                <!-- Correcto uso de static para imágenes locales -->
+                <img src="{% static 'img/qr morado.jpg' %}" alt="Logo de QRinformate" style="height: 50px;">
+            </a>
+            <nav class="d-flex">
+                <a href="{% url 'inicio' %}" class="text-white mx-2">Inicio</a>
+                <a href="{% url 'inicio' %}#servicios" class="text-white mx-2">Servicios</a>
+                <a href="{% url 'inicio' %}#galeria" class="text-white mx-2">Galería</a>
+                <a href="{% url 'inicio' %}#contactenos" class="text-white mx-2">Contáctenos</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'qrpage' %}" class="text-white mx-2">QR Page</a>
+                <a href= "{% url 'logout' %}" class="btn btn-outline-light ml-3 login">Logout</a>
+                {% else %}
+                <a href="{% url 'singup' %}" class="btn btn-outline-light ml-3 login">Registrarse</a>
+                <a href="{% url 'singin' %}" class="btn btn-outline-light ml-3 login">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    
+
+    {% block content %}
+    {% endblock %}    
+
+    <!-- Bootstrap Bundle with Popper (JavaScript) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+</body>
+
+</html>

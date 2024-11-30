@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .neon-text {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff4d4d, 0 0 20px #ff6666, 0 0 30px #ff8080;
+        text-align: center; /* Asegura que el texto esté centrado */
+    }
+
+    .neon-box {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 77, 77, 0.6), 
+                    0 0 30px rgba(255, 102, 102, 0.4), 0 0 40px rgba(255, 128, 128, 0.2);
+        border: 2px solid rgba(255, 77, 77, 0.8);
+        padding: 20px;
+    }
+
+    .btn-neon {
+        color: #fff;
+        background-color: #ff4d4d;
+        border: none;
+        text-shadow: 0 0 5px #ff8080, 0 0 10px #ff9999;
+        box-shadow: 0 0 5px #ff4d4d, 0 0 15px #ff6666;
+        transition: box-shadow 0.3s ease;
+        width: auto; /* El tamaño del botón no será demasiado grande */
+        padding: 10px 20px; /* Padding personalizado */
+        font-size: 16px;
+        border-radius: 5px;
+        display: block; /* Hace que el botón se comporte como un bloque */
+        margin: 20px auto; /* Centra el botón horizontalmente */
+    }
+
+    .btn-neon:hover {
+        box-shadow: 0 0 20px #ff3333, 0 0 30px #ff6666;
+    }
+
+    .form-container {
+        margin-top: 30px;  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+
+    .form-box {
+        width: 100%;
+        max-width: 400px; /* Limita el ancho del formulario */
+    }
+
+    .form-box h3 {
+        margin-bottom: 20px;
+    }
+
+    .form-box form .mb-3 {
+        margin-bottom: 15px;
+    }
+
+</style>
+
+<div class="row justify-content-center form-container">
+    <div class="col-md-6">
+        <div class="p-4 bg-dark text-light rounded shadow-sm neon-box">
+            <h3 class="text-center neon-text">Logueate</h3>
+            {{error}}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.username.label }}
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password.label }}
+                    {{ form.password }}
+                </div>
+                <button class="btn-neon">Login</button>
+            </form>
+        </div>                  
+    </div>
+</div>
+
+{% endblock %}
